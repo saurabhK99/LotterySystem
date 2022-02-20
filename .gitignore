@@ -1,0 +1,27 @@
+# smart_contract files
+smart_contract/cache
+smart_contract/artifacts
+
+smart_contract/node_modules
+smart_contract/coverage
+smart_contract/coverage.json
+smart_contract/typechain
+
+
+#client files
+client/node_modules
+
+## testing
+client/coverage
+
+## production
+client/build
+
+## misc
+client/.DS_Store
+client/npm-debug.log*
+client/yarn-debug.log*
+client/yarn-error.log*
+
+.env
+
