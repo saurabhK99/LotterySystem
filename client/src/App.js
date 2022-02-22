@@ -1,21 +1,22 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom'
+import HomeScreen from './screens/HomeScreen'
+import ErrorScreen from './screens/ErrorScreen'
 
-class App extends Component {
-  render() {
+import Header from './components/Header'
+import Footer from './components/Footer'
+
+const App = () => {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+        <Router>
+        <Header />
+        <Routes>
+            <Route path='/' element={<HomeScreen/>} exact />
+            <Route path="*" element={<ErrorScreen/>} />
+        </Routes>
+        <Footer />
+        </Router>
+    )
 }
 
-export default App;
+export default App
