@@ -7,15 +7,6 @@
   padding: 0;
 }
 
-body {
-  font-family: 'Poppins', sans-serif;
-  background-color: blue;
-}
-
-input, button, textarea, select {
-  font: inherit;
-}
-
 /* Custom properties */
 :root {
   /* colors */
@@ -23,6 +14,15 @@ input, button, textarea, select {
   --clr-light: 150, 106, 231;
   --clr-vibrant: 225, 82, 65;
   --clr-white: 246, 240, 249;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: rgb(var(--clr-dark));
+}
+
+input, button, textarea, select {
+  font: inherit;
 }
 
 /* Component-based Classes */
