@@ -1,0 +1,13 @@
+.footerContainer {
+    padding: 1.5em 0;
+    width:100%;
+    text-align: center;
+    color: rgb(var(--clr-white));
+    background-color: rgb(var(--clr-dark));
+}
+
+@media only screen and (max-width: 560px) {
+    .footerContainer {
+        font-size: 0.7rem;
+    }
+}

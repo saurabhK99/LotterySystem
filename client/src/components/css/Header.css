@@ -1,0 +1,28 @@
+.navigationContainer {
+    background-color: rgb(var(--clr-dark));
+    padding: 0.5rem;
+}
+
+.navigator {
+    display: flex;
+    gap: 2em;
+    justify-content: flex-end;
+    padding-right: 2em;
+}
+
+.navigatorLink {
+    text-decoration: none;
+    color: rgb(var(--clr-white));
+
+}
+
+.navigator > * {
+    list-style: none;
+}
+
+@media only screen and (max-width: 560px) {
+    .navigationContainer {
+        font-size: 0.7rem;
+    }
+}
+

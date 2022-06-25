@@ -1,43 +1,58 @@
-//SPDX-License-Identifier: Unlicense
-pragma solidity ^0.8.0;
+//SPDX-License-Identifier: UNLICENSED
+pragma solidity ^0.8.8;
+
+error Lottery__UnauthorizedAccess();
+error Lottery__NotEnoughETH();
+error Lottery__NotEnoughParticipants();
 
 contract Lottery {
-    address public manager;
-    address payable[] participants;
+    address private immutable s_manager;
+    address payable[] private s_participants;
 
     event WinnerDeclared(address winner, uint amount);
 
     modifier onlyManager {
-        require(msg.sender == manager, "Unauthorized!");
+        if(msg.sender != s_manager) {
+            revert Lottery__UnauthorizedAccess();
+        }
         _;
     }
 
     constructor() {
-        manager = msg.sender;
+        s_manager = msg.sender;
     }
 
-    receive() external payable {
-        require(msg.value == 1 gwei, "Please pay 1 gwei to participate!");
-        participants.push(payable(msg.sender));
+    function manager() public view returns(address) {
+        return s_manager;
+    }
+
+    function participate() public payable {
+        if(msg.value < 1 gwei) {
+            revert Lottery__NotEnoughETH();
+        }
+
+        s_participants.push(payable(msg.sender));
     }
 
     function balanceOf() public view onlyManager returns(uint) {
         return address(this).balance;
     }
 
-    function genRandom() public view returns(uint) {
-        return uint(keccak256(abi.encodePacked(block.timestamp, participants.length)));
+    function genRandom() internal view returns(uint) {
+        return uint(keccak256(abi.encodePacked(block.timestamp, s_participants.length)));
     }
 
     function declareWinner() public payable onlyManager {
-        require(participants.length > 3, "Not enough participants!");
+        if(s_participants.length < 3) {
+            revert Lottery__NotEnoughParticipants();
+        }
 
-        address payable winner = participants[genRandom()%participants.length];
+        address payable winner = s_participants[genRandom() % s_participants.length];
         uint amount = balanceOf();
 
         winner.transfer(amount);
 
-        participants = new address payable[](0);
+        s_participants = new address payable[](0);
 
         emit WinnerDeclared(winner, amount);
     }
