@@ -12,8 +12,7 @@ const App = () => {
     return (
         <Router>
             <Header />
-
-            <div style={{minHeight:'85vh'}}>
+            <div  style={{minHeight:'85vh'}}>
             <Routes>
                 <Route path='/' element={<HomeScreen />} exact />
                 <Route path='/about' element={<AboutScreen />} />

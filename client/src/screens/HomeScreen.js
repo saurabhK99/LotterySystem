@@ -18,13 +18,15 @@ const HomeScreen = () => {
     const [contractManager, setManager] = useState()
 
     useEffect(() => {
-        window.ethereum.on('accountsChanged', addressHandler)
-        window.ethereum.on('WinnerDeclared', (add, amt) => {
-            alert('Winner Congrats!')
-            localStorage.setItem(winnerAddress, add)
-            localStorage.setItem(winningAmount, amt)
-        })
-        addressHandler()
+        if (typeof window.ethereum !== 'undefined') {
+            window.ethereum.on('accountsChanged', addressHandler)
+            window.ethereum.on('WinnerDeclared', (add, amt) => {
+                alert('Winner Congrats!')
+                localStorage.setItem(winnerAddress, add)
+                localStorage.setItem(winningAmount, amt)
+            })
+            addressHandler()
+        }
     }, [])
 
     const addressHandler = async () => {
@@ -51,7 +53,10 @@ const HomeScreen = () => {
                     {typeof address === 'undefined' ? (
                         <ConnectButton connect={connect} />
                     ) : (
-                        <h2>Connected to {`${address.slice(0, 4)}...${address.slice(-4)}`}</h2>
+                        <h2>
+                            Connected to{' '}
+                            {`${address.slice(0, 4)}...${address.slice(-4)}`}
+                        </h2>
                     )}
                 </section>
 
